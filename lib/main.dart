@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hexagonguardians/pages/addClient/add_client.dart';
-import 'package:hexagonguardians/pages/atec/atec.dart';
 import 'package:hexagonguardians/pages/clientDetail/client_detail.dart';
 import 'package:hexagonguardians/pages/createClient/create_client.dart';
 import 'package:hexagonguardians/pages/detailAtec/detail_atec.dart';
@@ -21,14 +20,6 @@ final _router = GoRouter(
       path: '/login',
       name: 'login',
       builder: (context, state) => const LoginPage(),
-    ),
-    GoRoute(
-      path: '/atec/:id',
-      name: 'atec',
-      builder: (context, state) {
-        final userId = state.pathParameters['id'] ?? '0';
-        return Atec(client: userId);
-      },
     ),
     GoRoute(
         path: '/detailclient/:id/:name',

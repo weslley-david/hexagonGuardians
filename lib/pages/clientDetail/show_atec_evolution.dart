@@ -24,46 +24,47 @@ class _ShowAtecEvolutionState extends State<ShowAtecEvolution> {
 
   Future<void> _fetchAtecEvolution() async {
     final response = await http.get(Uri.parse(
-        'https://hexagon-no2i.onrender.com/atec/listevolutionbyarea?client=${widget.clientId}')); // Coloque a URL do seu endpoint aqui
+        'https://hexagon-no2i.onrender.com/atec/listevolutionbyarea?client=${widget.clientId}'));
     if (response.statusCode == 200) {
       setState(() {
         final jsonBody = jsonDecode(response.body);
-        _evolutionData = (jsonBody['evolution'] as List)
-            .map((e) => Evolution.fromJson(e))
-            .toList();
+        if (jsonBody['evolution'] != null && jsonBody['evolution'].isNotEmpty) {
+          _evolutionData = (jsonBody['evolution'] as List)
+              .map((e) => Evolution.fromJson(e))
+              .toList();
+        } else {
+          _evolutionData = [];
+        }
       });
     } else {
-      throw Exception('Failed to load Atec Evolution');
+      _evolutionData = [];
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text('Atec Evolution'),
-      // ),
-      body: ListView.builder(
-        itemCount: _evolutionData.length,
-        itemBuilder: (context, index) {
-          return Column(
-            children: [
-              ListTile(
-                title: Text(_evolutionData[index].area ?? ''),
-                //subtitle: Text(_evolutionData[index].score.toString()),
-              ),
-              SizedBox(
-                height: 200,
-                width: MediaQuery.of(context).size.width *
-                    0.9, // 90% da largura da tela
-                child: CustomPaint(
-                  painter: BarChartPainter(_evolutionData[index].score),
-                ),
-              ),
-            ],
-          );
-        },
-      ),
+      body: _evolutionData.isEmpty
+          ? const Center(child: Text('No data available'))
+          : ListView.builder(
+              itemCount: _evolutionData.length,
+              itemBuilder: (context, index) {
+                return Column(
+                  children: [
+                    ListTile(
+                      title: Text(_evolutionData[index].area ?? ''),
+                    ),
+                    SizedBox(
+                      height: 200,
+                      width: MediaQuery.of(context).size.width * 0.9,
+                      child: CustomPaint(
+                        painter: BarChartPainter(_evolutionData[index].score),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
     );
   }
 }

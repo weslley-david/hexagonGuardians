@@ -1,6 +1,5 @@
 // ignore: file_names
 import 'dart:convert';
-import 'package:go_router/go_router.dart';
 import 'package:hexagonguardians/pages/clientDetail/atecc_insights.dart';
 import 'package:hexagonguardians/pages/clientDetail/list_avaliations.dart';
 import 'package:hexagonguardians/pages/clientDetail/list_guardian.dart';
@@ -93,19 +92,26 @@ class _ClientDetailState extends State<ClientDetail>
                     ),
                   ),
                   Text(
-                    usuario.identifier ?? "no identifier",
+                    "identifier: ${usuario.identifier}",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.deepPurple[200],
                     ),
                   ),
                   Text(
-                    usuario.bio ?? "bio not found : (",
+                    "código: ${usuario.code}",
                     style: TextStyle(
                       fontSize: 15,
                       color: Colors.deepPurple[200],
                     ),
                   ),
+                  // Text(
+                  //   usuario.bio ?? "bio not found : (",
+                  //   style: TextStyle(
+                  //     fontSize: 15,
+                  //     color: Colors.deepPurple[200],
+                  //   ),
+                  // ),
                   const SizedBox(height: 20),
                   TabBar(
                     controller: _tabController,
@@ -150,13 +156,6 @@ class _ClientDetailState extends State<ClientDetail>
             );
           }
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => {context.push('/atec/${widget.id}')},
-        child: const Icon(
-          Icons.content_paste_go_rounded,
-          color: Colors.white,
-        ),
       ),
     );
   }

@@ -30,7 +30,7 @@ class _AddClientState extends State<AddClient> {
     });
 
     final url =
-        Uri.parse('https://hexagon-no2i.onrender.com/relation/specialist');
+        Uri.parse('https://hexagon-no2i.onrender.com/relation/guardian');
 
     String? token = await getAccessToken();
 

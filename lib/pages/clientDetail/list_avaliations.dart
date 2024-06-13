@@ -26,11 +26,19 @@ class _ListAvaliationsState extends State<ListAvaliations> {
         'https://hexagon-no2i.onrender.com/atec/listatectestsbyclientid?skip=0&take=30&client=${widget.clientId}'));
     if (response.statusCode == 200) {
       setState(() {
-        avaliations = json.decode(response.body);
+        final jsonBody = json.decode(response.body);
+        if (jsonBody != null && jsonBody.isNotEmpty) {
+          avaliations = jsonBody;
+        } else {
+          avaliations = [];
+        }
         isLoading = false;
       });
     } else {
-      throw Exception('Failed to load data');
+      setState(() {
+        avaliations = [];
+        isLoading = false;
+      });
     }
   }
 
@@ -39,42 +47,46 @@ class _ListAvaliationsState extends State<ListAvaliations> {
     return Scaffold(
       body: isLoading
           ? const Center(child: CircularProgressIndicator())
-          : ListView.builder(
-              itemCount: avaliations.length,
-              itemBuilder: (context, index) {
-                final avaliacao = avaliations[index];
-                return Card(
-                  margin: const EdgeInsets.all(10.0),
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          avaliacao['title'],
-                          style: const TextStyle(
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.bold,
-                          ),
+          : avaliations.isEmpty
+              ? const Center(child: Text('No data available'))
+              : ListView.builder(
+                  itemCount: avaliations.length,
+                  itemBuilder: (context, index) {
+                    final avaliacao = avaliations[index];
+                    return Card(
+                      margin: const EdgeInsets.all(10.0),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              avaliacao['title'],
+                              style: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(height: 5.0),
+                            Text('Data: ${avaliacao['created_at']}'),
+                            const SizedBox(height: 10.0),
+                            ...avaliacao['areas'].map<Widget>((area) {
+                              return Text(
+                                  '${area['area']}: ${area['pontuation']}');
+                            }).toList(),
+                            TextButton(
+                              child: const Text("detalhar respostas"),
+                              onPressed: () => {
+                                context.push(
+                                    '/detailavaliation/${avaliacao['id']}')
+                              },
+                            )
+                          ],
                         ),
-                        const SizedBox(height: 5.0),
-                        Text('Data: ${avaliacao['created_at']}'),
-                        const SizedBox(height: 10.0),
-                        ...avaliacao['areas'].map<Widget>((area) {
-                          return Text('${area['area']}: ${area['pontuation']}');
-                        }).toList(),
-                        TextButton(
-                          child: const Text("detalhar respostas"),
-                          onPressed: () => {
-                            context.push('/detailavaliation/${avaliacao['id']}')
-                          },
-                        )
-                      ],
-                    ),
-                  ),
-                );
-              },
-            ),
+                      ),
+                    );
+                  },
+                ),
     );
   }
 }

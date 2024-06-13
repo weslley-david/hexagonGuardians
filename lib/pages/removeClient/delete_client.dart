@@ -27,7 +27,7 @@ class _RemoveClientState extends State<RemoveClient> {
     });
 
     final url =
-        Uri.parse('https://hexagon-no2i.onrender.com/relation/specialist');
+        Uri.parse('https://hexagon-no2i.onrender.com/relation/guardian');
 
     String? token = await getAccessToken();
 

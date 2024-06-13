@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
     };
     String? token = await getAccessToken();
     final uri = Uri.https(
-        'hexagon-no2i.onrender.com', '/client/byspecialist', queryParams);
+        'hexagon-no2i.onrender.com', '/client/byguardian', queryParams);
 
     final response = await http.get(
       uri,
@@ -102,7 +102,7 @@ class _HomePageState extends State<HomePage> {
               leading: const Icon(Icons.remove),
             ),
             ListTile(
-              title: const Text('Cadastrar cliente'),
+              title: const Text('Cadastrar'),
               onTap: () {
                 context.push('/createclient');
               },
@@ -136,7 +136,9 @@ class _HomePageState extends State<HomePage> {
                 builder: (context, AsyncSnapshot<List<Client>> snapshot) {
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.data == null) {
-                      return const Center(child: Text('Something went wrong'));
+                      return const Center(
+                          child: Text(
+                              'Aqui parece meio vazio... Tente adicionar alguém no menu ao lado'));
                     }
 
                     return ListView.builder(
@@ -157,8 +159,9 @@ class _HomePageState extends State<HomePage> {
                                 context.push(
                                     '/detailclient/${snapshot.data![index].id}/${snapshot.data![index].identifier}')
                               },
-                              leading: const CircleAvatar(
-                                backgroundImage: NetworkImage(
+                              leading: CircleAvatar(
+                                backgroundImage: NetworkImage(snapshot
+                                        .data![index].imageurl ??
                                     "https://hexagon-no2i.onrender.com/static/client.png"),
                               ),
                               title: Text(
