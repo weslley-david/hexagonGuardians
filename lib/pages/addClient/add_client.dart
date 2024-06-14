@@ -100,11 +100,12 @@ class _AddClientState extends State<AddClient> {
               ),
               const SizedBox(height: 20),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: isLoading
-                        ? const CircularProgressIndicator()
-                        : ElevatedButton(
+                  isLoading
+                      ? const CircularProgressIndicator()
+                      : Expanded(
+                          child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
@@ -113,7 +114,7 @@ class _AddClientState extends State<AddClient> {
                             },
                             child: const Text('Enviar'),
                           ),
-                  ),
+                        ),
                 ],
               ),
               const SizedBox(height: 20),

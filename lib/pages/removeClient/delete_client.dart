@@ -82,11 +82,12 @@ class _RemoveClientState extends State<RemoveClient> {
               ),
               const SizedBox(height: 20),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Expanded(
-                    child: isLoading
-                        ? const CircularProgressIndicator()
-                        : ElevatedButton(
+                  isLoading
+                      ? const CircularProgressIndicator()
+                      : Expanded(
+                          child: ElevatedButton(
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
@@ -95,7 +96,7 @@ class _RemoveClientState extends State<RemoveClient> {
                             },
                             child: const Text('Enviar'),
                           ),
-                  ),
+                        ),
                 ],
               ),
               const SizedBox(height: 20),
