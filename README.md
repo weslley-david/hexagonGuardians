@@ -1,17 +1,23 @@
-# hexagonguardians
+# **Acompanhar Guardians - Hexagon**
+![Badge em Desenvolvimento](http://img.shields.io/static/v1?label=STATUS&message=Em%20Desenvolvimento&color=green&style=for-the-badge)
+---
 
-A new Flutter project.
+Olá,
 
-## Getting Started
+O presente repositório faz parte de uma suíte de código aberto que visa promover a implementação de um sistema capaz de analisar a similaridade do resultado dos testes entre usuários e através disso sugerir tópicos para intervenção no tratamento do transtorno do espectro autista (TEA). 
 
-This project is a starting point for a Flutter application.
+Este projeto ainda está em fase de desenvolvimento e **não deve ser colocado em produção** até que sejam assegurados o sigilo dos dados dos eventuais utilizadores. 
 
-A few resources to get you started if this is your first Flutter project:
+---
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Deploy
+Clonar o repositório e dentro do diretório do projeto
+- Substituir url do domínio 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-# hexagonGuardians
+- implementar os comandos:
+```
+flutter pub get
+```
+```
+flutter run
+```
